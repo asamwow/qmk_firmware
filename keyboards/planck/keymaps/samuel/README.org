@@ -24,12 +24,12 @@ before, so bear with me.
   keymap. No more organizing spaces or converting to and from comments.
 
   #+NAME: home-layer
-  |--------+--------+------+------+-----+-----+------+-----+------+-------+--------+--------|
-  | T_LRSE | QUOT   | COMM | DOT  | P   | Y   | F    | G   | C    | R     | L      | T_RRSE |
-  | T_LSFT | A      | O    | E    | U   | I   | D    | H   | T    | N     | S      | T_RSFT |
-  | T_LCTL | SCLN   | Q    | J    | K   | X   | B    | M   | W    | V     | Z      | T_RCTL |
+  |--------+--------+------+------+-----+-----+-------+-----+------+-------+--------+--------|
+  | T_LRSE | QUOT   | COMM | DOT  | P   | Y   | F     | G   | C    | R     | L      | T_RRSE |
+  | T_LSFT | A      | O    | E    | U   | I   | D     | H   | T    | N     | S      | T_RSFT |
+  | T_LCTL | SCLN   | Q    | J    | K   | X   | B     | M   | W    | V     | Z      | T_RCTL |
   | T_LGUI | T_LALT | UP   | DOWN | SPC | EQL | GRAVE | SPC | LEFT | RIGHT | T_RALT | T_RGUI |
-  |--------+--------+------+------+-----+-----+------+-----+------+-------+--------+--------|
+  |--------+--------+------+------+-----+-----+-------+-----+------+-------+--------+--------|
 
   Tap keys. Used only with the "T_" keys above.
 
@@ -67,12 +67,12 @@ before, so bear with me.
   Basic command layer for one-shot macros and function keys.
 
   #+NAME: command-layer
-  |----+-----+-----+-----+-----+--------+--------+-----+-----+-----+-----+----|
-  | -- | F1  | F2  | F3  | F4  | F5     | F6     | F7  | F8  | F9  | F10 | -- |
-  | -- | F11 | F12 | F13 | F14 | F15    | F16    | F17 | F18 | F19 | F20 | -- |
-  | -- | F21 | F22 | F23 | F24 | QWERTY | DVORAK | --  | --  | --  | --  | -- |
-  | -- | --  | --  | --  | --  | --     | --     | --  | --  | --  | --  | -- |
-  |----+-----+-----+-----+-----+--------+--------+-----+-----+-----+-----+----|
+  |----+-----+-----+-----+-----+--------+--------+-----------+-----+-----+-----+----|
+  | -- | F1  | F2  | F3  | F4  | F5     | F6     | F7        | F8  | F9  | F10 | -- |
+  | -- | F11 | F12 | F13 | F14 | F15    | F16    | F17       | F18 | F19 | F20 | -- |
+  | -- | F21 | F22 | F23 | F24 | QWERTY | DVORAK | RUNESCAPE | --  | --  | --  | -- |
+  | -- | --  | --  | --  | --  | --     | --     | --        | --  | --  | --  | -- |
+  |----+-----+-----+-----+-----+--------+--------+-----------+-----+-----+-----+----|
 
   This qwerty layout is just so normal people can try out the board. Tap keys
   would need to be customized I think, more on that later. I also put another
@@ -80,12 +80,22 @@ before, so bear with me.
   layout.
 
   #+NAME: qwerty-layer
-  |--------+--------+----+------+-----+-----+------+-----+------+-------+--------+--------|
-  | T_LRSE | Q      | W  | E    | R   | T   | Y    | U   | I    | O     | P      | T_RRSE |
-  | T_LSFT | A      | S  | D    | F   | G   | H    | J   | K    | L     | SCLN   | T_RSFT |
-  | T_LCTL | Z      | X  | C    | V   | B   | N    | M   | COMM | DOT   | QUOT   | T_RCTL |
+  |--------+--------+----+------+-----+-----+-------+-----+------+-------+--------+--------|
+  | T_LRSE | Q      | W  | E    | R   | T   | Y     | U   | I    | O     | P      | T_RRSE |
+  | T_LSFT | A      | S  | D    | F   | G   | H     | J   | K    | L     | SCLN   | T_RSFT |
+  | T_LCTL | Z      | X  | C    | V   | B   | N     | M   | COMM | DOT   | QUOT   | T_RCTL |
   | T_LGUI | T_LALT | UP | DOWN | SPC | EQL | GRAVE | SPC | LEFT | RIGHT | T_RALT | DVORAK |
-  |--------+--------+----+------+-----+-----+------+-----+------+-------+--------+--------|
+  |--------+--------+----+------+-----+-----+-------+-----+------+-------+--------+--------|
+
+Layer with mouse keys for those long, one handed runescape sessions.
+
+  #+NAME: runescape-layer
+  |--------+-----------+-----------+-----------+---------+---------+-----+-------+------+-------+--------+--------|
+  | ESC    | 1         | 2         | 3         | 4       | 5       | 6   |     7 |    8 |     9 | F18    | BSPC   |
+  | T_LSFT | ESC       | F14       | MS_U      | MS_BTN2 | MS_BTN1 | F15 |     4 |    5 |     6 | 0      | ENTER  |
+  | TOGSFT | MS_ACCEL0 | MS_ACCEL1 | MS_ACCEL2 | MS_L    | MS_R    | F16 |     1 |    2 |     3 | F19    | RCTRL  |
+  | EZRUN  | LALT      | UP        | DOWN      | SPC     | MS_D    | F17 | ENTER | LEFT | RIGHT | EZPSTE | DVORAK |
+  |--------+-----------+-----------+-----------+---------+---------+-----+-------+------+-------+--------+--------|
 
 
 * Keymap Conversion in Python
@@ -190,7 +200,10 @@ KC_EZGUI,
 KC_EZALT,
 KC_DVORAK,
 KC_QWERTY,
-KC_COM
+KC_COM,
+KC_RUNESCAPE,
+KC_EZRUN,
+KC_TOGSFT
 };
 
    #+END_SRC
@@ -202,7 +215,8 @@ enum planck_layers {
 _DVORAK,
 _QWERTY,
 _RISE,
-_COMMAND
+_COMMAND,
+_RUNESCAPE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -221,6 +235,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_COMMAND] = LAYOUT_planck_grid(
 <<layer-to-array(command-layer)>>
+),
+[_RUNESCAPE] = LAYOUT_planck_grid(
+<<layer-to-array(runescape-layer)>>
 )
 };
 
@@ -239,6 +256,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    impossible at the moment.
 
    #+BEGIN_SRC C :noweb yes
+
+  char shift_toggled = 0;
 
   static uint16_t tap_timer = 0;
   char last_mod = 10;
@@ -293,6 +312,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  case KC_QWERTY:
  if (record->event.pressed) {
      set_single_persistent_default_layer(_QWERTY);
+ }
+ return true;
+ break;
+
+    #+END_SRC
+
+    Set Runescape layout.
+
+    #+BEGIN_SRC C :noweb yes
+ case KC_RUNESCAPE:
+ if (record->event.pressed) {
+     set_single_persistent_default_layer(_RUNESCAPE);
  }
  return true;
  break;
@@ -476,6 +507,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      last_mod = 10;
  }
  return false;
+ break;
+ case KC_EZRUN:
+ if (record->event.pressed) {
+     tap_code16(LGUI(KC_R));
+     last_mod = 10;
+ }
+ return false;
+ break;
+ case KC_TOGSFT:
+ if (record->event.pressed) {
+     if (shift_toggled == 0) {
+         register_code(KC_LSFT);
+         shift_toggled = 1;
+     } else {
+         unregister_code(KC_LSFT);
+         shift_toggled = 0;
+     }
+     last_mod = 10;
+ }
  break;
      #+END_SRC
 

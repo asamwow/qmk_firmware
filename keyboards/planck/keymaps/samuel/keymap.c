@@ -29,14 +29,18 @@ KC_EZGUI,
 KC_EZALT,
 KC_DVORAK,
 KC_QWERTY,
-KC_COM
+KC_COM,
+KC_RUNESCAPE,
+KC_EZRUN,
+KC_TOGSFT
 };
 
 enum planck_layers {
 _DVORAK,
 _QWERTY,
 _RISE,
-_COMMAND
+_COMMAND,
+_RUNESCAPE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -62,10 +66,18 @@ KC_EZGUI, KC_EZALT, KC_EZUP, KC_EZDOWN, KC_SPC, KC_PIPE, KC_BSLASH, KC_END, KC_E
 [_COMMAND] = LAYOUT_planck_grid(
 KC_TRANSPARENT, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_TRANSPARENT,
 KC_TRANSPARENT, KC_F11, KC_F12, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_TRANSPARENT,
-KC_TRANSPARENT, KC_F21, KC_F22, KC_F23, KC_F24, KC_QWERTY, KC_DVORAK, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+KC_TRANSPARENT, KC_F21, KC_F22, KC_F23, KC_F24, KC_QWERTY, KC_DVORAK, KC_RUNESCAPE, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
+),
+[_RUNESCAPE] = LAYOUT_planck_grid(
+KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_F18, KC_BSPC,
+KC_T_LSFT, KC_ESC, KC_F14, KC_MS_U, KC_MS_BTN2, KC_MS_BTN1, KC_F15, KC_4, KC_5, KC_6, KC_0, KC_ENTER,
+KC_TOGSFT, KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, KC_MS_L, KC_MS_R, KC_F16, KC_1, KC_2, KC_3, KC_F19, KC_RCTRL,
+KC_EZRUN, KC_LALT, KC_UP, KC_DOWN, KC_SPC, KC_MS_D, KC_F17, KC_ENTER, KC_LEFT, KC_RIGHT, KC_EZPSTE, KC_DVORAK
 )
 };
+
+char shift_toggled = 0;
 
 static uint16_t tap_timer = 0;
 char last_mod = 10;
@@ -105,6 +117,13 @@ break;
 case KC_QWERTY:
 if (record->event.pressed) {
     set_single_persistent_default_layer(_QWERTY);
+}
+return true;
+break;
+
+case KC_RUNESCAPE:
+if (record->event.pressed) {
+    set_single_persistent_default_layer(_RUNESCAPE);
 }
 return true;
 break;
@@ -307,6 +326,25 @@ if (record->event.pressed) {
     last_mod = 10;
 }
 return false;
+break;
+case KC_EZRUN:
+if (record->event.pressed) {
+    tap_code16(LGUI(KC_R));
+    last_mod = 10;
+}
+return false;
+break;
+case KC_TOGSFT:
+if (record->event.pressed) {
+    if (shift_toggled == 0) {
+        register_code(KC_LSFT);
+        shift_toggled = 1;
+    } else {
+        unregister_code(KC_LSFT);
+        shift_toggled = 0;
+    }
+    last_mod = 10;
+}
 break;
 
 }

@@ -1,1 +1,5 @@
 #define TAPPING_TERM 250
+#define MOUSEKEY_DELAY 0
+#define MK_3_SPEED
+#define MK_C_OFFSET_0 43
+#define MK_C_INTERVAL_0 16959

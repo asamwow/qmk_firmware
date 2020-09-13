@@ -34,12 +34,12 @@ before, so bear with me.
   Tap keys. Used only with the "T_" keys above.
 
   #+NAME: tap-layer
-  |----------+------+---+---+---+---+---+---+---+---+------+----------|
-  | DEL      | -    | - | - | - | - | - | - | - | - | -    | BSPC     |
-  | TAB      | -    | - | - | - | - | - | - | - | - | -    | ENTER    |
-  | LBRACKET | -    | - | - | - | - | - | - | - | - | -    | RBRACKET |
-  | SLASH    | LPRN | - | - | - | - | - | - | - | - | RPRN | MINS     |
-  |----------+------+---+---+---+---+---+---+---+---+------+----------|
+  |------+----------+---+---+---+---+---+---+---+---+----------+-------|
+  | ESC  | -        | - | - | - | - | - | - | - | - | -        | SLASH |
+  | TAB  | -        | - | - | - | - | - | - | - | - | -        | ENTER |
+  | BSPC | -        | - | - | - | - | - | - | - | - | -        | MINS  |
+  | LPRN | LBRACKET | - | - | - | - | - | - | - | - | RBRACKET | RPRN  |
+  |------+----------+---+---+---+---+---+---+---+---+----------+-------|
 
   #+NAME: hold-layer
   |------+------+---+---+---+---+---+---+---+---+------+------|
@@ -59,7 +59,7 @@ before, so bear with me.
   #+NAME: secondary-layer
   |--------+--------+--------+--------+--------+------+--------+-----+--------+--------+-------+--------|
   | --     | EZUNDO | EZCOPY | EZCUT  | EZPSTE | INS  | ASTR   |   7 |      8 |      9 | --    | --     |
-  | EZSHFT | ESC    | CAPS   | PGUP   | PGDN   | HOME | AMPR   |   4 |      5 |      6 | 0     | EZSHFT |
+  | EZSHFT | DEL    | CAPS   | PGUP   | PGDN   | HOME | AMPR   |   4 |      5 |      6 | 0     | EZSHFT |
   | EZCTRL | EXLM   | AT     | HASH   | DLR    | PERC | CIRC   |   1 |      2 |      3 | COM   | EZCTRL |
   | EZGUI  | EZALT  | EZUP   | EZDOWN | SPC    | PIPE | BSLASH | END | EZLEFT | EZRGHT | EZALT | EZGUI  |
   |--------+--------+--------+--------+--------+------+--------+-----+--------+--------+-------+--------|
@@ -370,7 +370,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  } else {
      layer_off(_RISE);
      if (last_mod == 8 && timer_elapsed(tap_timer) < TAPPING_TERM) {
-         tap_code16(KC_DELETE);
+         tap_code16(KC_ESC);
          last_mod = 10;
      }
  }
@@ -384,7 +384,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  } else {
      layer_off(_RISE);
      if (last_mod == 9 && timer_elapsed(tap_timer) < TAPPING_TERM) {
-         tap_code16(KC_BSPACE);
+         tap_code16(KC_SLASH);
          last_mod = 10;
      }
  }

@@ -31,6 +31,7 @@ KC_DVORAK,
 KC_QWERTY,
 KC_COM,
 KC_RUNESCAPE,
+KC_RS_CLASSIC,
 KC_EZRUN,
 KC_TOGSFT
 };
@@ -40,7 +41,8 @@ _DVORAK,
 _QWERTY,
 _RISE,
 _COMMAND,
-_RUNESCAPE
+_RUNESCAPE,
+_RUNESCAPE_CLASSIC
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -66,7 +68,7 @@ KC_EZGUI, KC_EZALT, KC_EZUP, KC_EZDOWN, KC_SPC, KC_PIPE, KC_BSLASH, KC_END, KC_E
 [_COMMAND] = LAYOUT_planck_grid(
 KC_TRANSPARENT, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_TRANSPARENT,
 KC_TRANSPARENT, KC_F11, KC_F12, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_TRANSPARENT,
-KC_TRANSPARENT, KC_F21, KC_F22, KC_F23, KC_F24, KC_QWERTY, KC_DVORAK, KC_RUNESCAPE, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
+KC_TRANSPARENT, KC_F21, KC_F22, KC_F23, KC_F24, KC_QWERTY, KC_DVORAK, KC_RUNESCAPE, KC_RS_CLASSIC, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,
 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
 ),
 [_RUNESCAPE] = LAYOUT_planck_grid(
@@ -74,6 +76,12 @@ KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_F18, KC_BSPC,
 KC_T_LSFT, KC_ESC, KC_MS_BTN2, KC_MS_U, KC_F14, KC_MS_BTN1, KC_F15, KC_4, KC_5, KC_6, KC_0, KC_ENTER,
 KC_TOGSFT, KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2, KC_MS_L, KC_MS_R, KC_F16, KC_1, KC_2, KC_3, KC_F19, KC_RCTRL,
 KC_EZRUN, KC_LALT, KC_UP, KC_DOWN, KC_SPC, KC_MS_D, KC_F17, KC_ENTER, KC_LEFT, KC_RIGHT, KC_EZPSTE, KC_DVORAK
+),
+[_RUNESCAPE_CLASSIC] = LAYOUT_planck_grid(
+KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_7, KC_8, KC_9, KC_F18, KC_BSPC,
+KC_T_LSFT, KC_MS_ACCEL1, KC_MS_L, KC_UP, KC_MS_R, KC_MS_BTN1, KC_MS_BTN2, KC_4, KC_5, KC_6, KC_0, KC_ENTER,
+KC_BSPC, KC_MS_ACCEL2, KC_LEFT, KC_DOWN, KC_RIGHT, KC_SPACE, KC_F7, KC_1, KC_2, KC_3, KC_EZCOPY, KC_TOGSFT,
+KC_T_LGUI, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_F8, KC_F9, KC_F10, KC_EZPSTE, KC_DVORAK
 )
 };
 
@@ -127,6 +135,12 @@ if (record->event.pressed) {
 }
 return true;
 break;
+case KC_RS_CLASSIC:
+if (record->event.pressed) {
+    set_single_persistent_default_layer(_RUNESCAPE_CLASSIC);
+}
+return true;
+break;
 
 case KC_COM:
 if (record->event.pressed) {
@@ -140,69 +154,69 @@ return false;
 break;
 
 case KC_T_LALT:
-	if (record->event.pressed) {
-	   mod_press(KC_LBRACKET, KC_LALT, 0);
-	} else {
-	   mod_lift(KC_LBRACKET, KC_LALT, 0);
-	}
-	return false;
-	break;
+if (record->event.pressed) {
+   mod_press(KC_LBRACKET, KC_LALT, 0);
+} else {
+   mod_lift(KC_LBRACKET, KC_LALT, 0);
+}
+return false;
+break;
 case KC_T_RALT:
-	if (record->event.pressed) {
-	   mod_press(KC_RBRACKET, KC_RALT, 1);
-	} else {
-	   mod_lift(KC_RBRACKET, KC_RALT, 1);
-	}
-	return false;
-	break;
+if (record->event.pressed) {
+   mod_press(KC_RBRACKET, KC_RALT, 1);
+} else {
+   mod_lift(KC_RBRACKET, KC_RALT, 1);
+}
+return false;
+break;
 case KC_T_LGUI:
-	if (record->event.pressed) {
-	   mod_press(KC_LPRN, KC_LGUI, 2);
-	} else {
-	   mod_lift(KC_LPRN, KC_LGUI, 2);
-	}
-	return false;
-	break;
+if (record->event.pressed) {
+   mod_press(KC_LPRN, KC_LGUI, 2);
+} else {
+   mod_lift(KC_LPRN, KC_LGUI, 2);
+}
+return false;
+break;
 case KC_T_RGUI:
-	if (record->event.pressed) {
-	   mod_press(KC_RPRN, KC_RGUI, 3);
-	} else {
-	   mod_lift(KC_RPRN, KC_RGUI, 3);
-	}
-	return false;
-	break;
+if (record->event.pressed) {
+   mod_press(KC_RPRN, KC_RGUI, 3);
+} else {
+   mod_lift(KC_RPRN, KC_RGUI, 3);
+}
+return false;
+break;
 case KC_T_LCTL:
-	if (record->event.pressed) {
-	   mod_press(KC_BSPC, KC_LCTL, 4);
-	} else {
-	   mod_lift(KC_BSPC, KC_LCTL, 4);
-	}
-	return false;
-	break;
+if (record->event.pressed) {
+   mod_press(KC_BSPC, KC_LCTL, 4);
+} else {
+   mod_lift(KC_BSPC, KC_LCTL, 4);
+}
+return false;
+break;
 case KC_T_RCTL:
-	if (record->event.pressed) {
-	   mod_press(KC_MINS, KC_RCTL, 5);
-	} else {
-	   mod_lift(KC_MINS, KC_RCTL, 5);
-	}
-	return false;
-	break;
+if (record->event.pressed) {
+   mod_press(KC_MINS, KC_RCTL, 5);
+} else {
+   mod_lift(KC_MINS, KC_RCTL, 5);
+}
+return false;
+break;
 case KC_T_LSFT:
-	if (record->event.pressed) {
-	   mod_press(KC_TAB, KC_LSFT, 6);
-	} else {
-	   mod_lift(KC_TAB, KC_LSFT, 6);
-	}
-	return false;
-	break;
+if (record->event.pressed) {
+   mod_press(KC_TAB, KC_LSFT, 6);
+} else {
+   mod_lift(KC_TAB, KC_LSFT, 6);
+}
+return false;
+break;
 case KC_T_RSFT:
-	if (record->event.pressed) {
-	   mod_press(KC_ENTER, KC_RSFT, 7);
-	} else {
-	   mod_lift(KC_ENTER, KC_RSFT, 7);
-	}
-	return false;
-	break;
+if (record->event.pressed) {
+   mod_press(KC_ENTER, KC_RSFT, 7);
+} else {
+   mod_lift(KC_ENTER, KC_RSFT, 7);
+}
+return false;
+break;
 
 case KC_T_LRSE:
 if (record->event.pressed) {

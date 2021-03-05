@@ -67,12 +67,12 @@ before, so bear with me.
   Basic command layer for one-shot macros and function keys.
 
   #+NAME: command-layer
-  |----+-----+-----+-----+-----+--------+--------+-----------+-----+-----+-----+----|
-  | -- | F1  | F2  | F3  | F4  | F5     | F6     | F7        | F8  | F9  | F10 | -- |
-  | -- | F11 | F12 | F13 | F14 | F15    | F16    | F17       | F18 | F19 | F20 | -- |
-  | -- | F21 | F22 | F23 | F24 | QWERTY | DVORAK | RUNESCAPE | --  | --  | --  | -- |
-  | -- | --  | --  | --  | --  | --     | --     | --        | --  | --  | --  | -- |
-  |----+-----+-----+-----+-----+--------+--------+-----------+-----+-----+-----+----|
+  |----+-----+-----+-----+-----+--------+--------+-----------+------------+-----+-----+----|
+  | -- | F1  | F2  | F3  | F4  | F5     | F6     | F7        | F8         | F9  | F10 | -- |
+  | -- | F11 | F12 | F13 | F14 | F15    | F16    | F17       | F18        | F19 | F20 | -- |
+  | -- | F21 | F22 | F23 | F24 | QWERTY | DVORAK | RUNESCAPE | RS_CLASSIC | --  | --  | -- |
+  | -- | --  | --  | --  | --  | --     | --     | --        | --         | --  | --  | -- |
+  |----+-----+-----+-----+-----+--------+--------+-----------+------------+-----+-----+----|
 
   This qwerty layout is just so normal people can try out the board. Tap keys
   would need to be customized I think, more on that later. I also put another
@@ -97,6 +97,15 @@ Layer with mouse keys for those long, one handed runescape sessions.
   | EZRUN  | LALT      | UP        | DOWN      | SPC  | MS_D    | F17 | ENTER | LEFT | RIGHT | EZPSTE | DVORAK |
   |--------+-----------+-----------+-----------+------+---------+-----+-------+------+-------+--------+--------|
 
+Layer with f keys for steam client.
+
+  #+NAME: classic-runescape-layer
+  |--------+-----------+------+------+-------+---------+---------+----+----+-----+--------+--------|
+  | ESC    | F1        | F2   | F3   | F4    | F5      | F6      |  7 |  8 |   9 | F18    | BSPC   |
+  | T_LSFT | MS_ACCEL1 | MS_L | UP   | MS_R  | MS_BTN1 | MS_BTN2 |  4 |  5 |   6 | 0      | ENTER  |
+  | BSPC   | MS_ACCEL2 | LEFT | DOWN | RIGHT | SPACE   | F7      |  1 |  2 |   3 | EZCOPY | TOGSFT |
+  | T_LGUI | 1         | 2    | 3    | 4     | 5       | 6       | F8 | F9 | F10 | EZPSTE | DVORAK |
+  |--------+-----------+------+------+-------+---------+---------+----+----+-----+--------+--------|
 
 * Keymap Conversion in Python
 
@@ -202,6 +211,7 @@ KC_DVORAK,
 KC_QWERTY,
 KC_COM,
 KC_RUNESCAPE,
+KC_RS_CLASSIC,
 KC_EZRUN,
 KC_TOGSFT
 };
@@ -216,7 +226,8 @@ _DVORAK,
 _QWERTY,
 _RISE,
 _COMMAND,
-_RUNESCAPE
+_RUNESCAPE,
+_RUNESCAPE_CLASSIC
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -238,6 +249,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_RUNESCAPE] = LAYOUT_planck_grid(
 <<layer-to-array(runescape-layer)>>
+),
+[_RUNESCAPE_CLASSIC] = LAYOUT_planck_grid(
+<<layer-to-array(classic-runescape-layer)>>
 )
 };
 
@@ -324,6 +338,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  case KC_RUNESCAPE:
  if (record->event.pressed) {
      set_single_persistent_default_layer(_RUNESCAPE);
+ }
+ return true;
+ break;
+ case KC_RS_CLASSIC:
+ if (record->event.pressed) {
+     set_single_persistent_default_layer(_RUNESCAPE_CLASSIC);
  }
  return true;
  break;

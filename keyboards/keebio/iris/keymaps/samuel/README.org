@@ -8,13 +8,13 @@
   keymap. No more organizing spaces or converting to and from comments.
 
   #+NAME: home-layer
-  |--------+------+------+------+------+-------+------+------+-------+------+------+-------+------+--------|
-  | T_LRSE | QUOT | COMM | DOT  | P    | Y     |      |      | F     | G    | C    | R     | L    | T_RRSE |
-  | T_LSFT | A    | O    | E    | U    | I     |      |      | D     | H    | T    | N     | S    | T_RSFT |
-  | T_LCTL | SCLN | Q    | J    | K    | X     |      |      | B     | M    | W    | V     | Z    | T_RCTL |
-  | LGUI   | LALT | UP   | DOWN | SPC  | EQL   | LBRC | RBRC | GRAVE | SPC  | LEFT | RIGHT | RALT | RGUI   |
-  | --     | --   | --   | --   | PGUP | SPACE | LPRN | RPRN | SPACE | PGDN | --   | --    | --   | --     |
-  |--------+------+------+------+------+-------+------+------+-------+------+------+-------+------+--------|
+  |--------+------+------+------+-----+-------+------+------+-------+-----+------+-------+------+--------|
+  | T_LRSE | QUOT | COMM | DOT  | P   | Y     |      |      | F     | G   | C    | R     | L    | T_RRSE |
+  | T_LSFT | A    | O    | E    | U   | I     |      |      | D     | H   | T    | N     | S    | T_RSFT |
+  | T_LCTL | SCLN | Q    | J    | K   | X     |      |      | B     | M   | W    | V     | Z    | T_RCTL |
+  | LGUI   | LALT | UP   | DOWN | SPC | EQL   | LBRC | RBRC | GRAVE | SPC | LEFT | RIGHT | RALT | RGUI   |
+  | --     | --   | --   | --   | F5  | SPACE | LPRN | RPRN | SPACE | F6  | --   | --    | --   | --     |
+  |--------+------+------+------+-----+-------+------+------+-------+-----+------+-------+------+--------|
 
   Tap keys. Used only with the "T_" keys above.
 
